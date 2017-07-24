@@ -1,4 +1,6 @@
-FROM alpine:3.6
+FROM alpine:latest
+
+ENV REFRESHED_AT 2017-07-25
 
 ENV SERVER_ADDR     0.0.0.0
 ENV SERVER_PORT     27327
