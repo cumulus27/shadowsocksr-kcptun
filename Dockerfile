@@ -1,7 +1,7 @@
 FROM alpine:3.6
 
 ENV SERVER_ADDR     0.0.0.0
-ENV SERVER_PORT     57236
+ENV SERVER_PORT     9527
 ENV PASSWORD        misaki
 ENV METHOD          aes-256-ctr
 ENV PROTOCOL        auth_chain_a
