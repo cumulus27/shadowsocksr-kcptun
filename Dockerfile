@@ -52,4 +52,4 @@ WORKDIR $WORK/shadowsocksr-$BRANCH/shadowsocks
 EXPOSE $SERVER_PORT
 EXPOSE $KCP_SERVER_PORT
 
-CMD ["ssr_kcp.sh"]
+CMD ssr_kcp.sh
