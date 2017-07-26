@@ -20,8 +20,6 @@ ENV WORK_HOST       127.0.0.1
 ENV MODE            fast2
 
 ARG BRANCH=manyuser
-ARG WORK=~
-ARG KCP_WORK=~
 ARG HOME=~
 
 
@@ -30,30 +28,29 @@ RUN apk --no-cache add python \
     wget \
     bash
 
-WORKDIR $HOME
 
-RUN mkdir -p $WORK && \
-    wget -qO- --no-check-certificate https://github.com/shadowsocksr/shadowsocksr/archive/$BRANCH.tar.gz | tar -xzf - -C $WORK
+RUN mkdir -p $HOME && \
+    wget -qO- --no-check-certificate https://github.com/shadowsocksr/shadowsocksr/archive/$BRANCH.tar.gz | tar -xzf - -C $HOME
 
 
-RUN mkdir -p $KCP_WORK \
+RUN mkdir -p $HOME \
     && wget -qO- --no-check-certificate https://github.com/xtaci/kcptun/releases/download/v$KCP_VERSION/kcptun-linux-amd64-$KCP_VERSION.tar.gz \
-    | tar -zxf - -C $KCP_WORK \
-    && mv $KCP_WORK/server_linux_amd64 /usr/bin/kcptun \
+    | tar -zxf - -C $HOME \
+    && mv $HOME/server_linux_amd64 /usr/bin/kcptun \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
     && rm -rf $HOME/client_linux_amd64 \
        /var/cache/apk/*
 
-RUN echo "python server.py -p $SERVER_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM >> /~/ssr_kcp.log 2>&1 &" > /usr/bin/ssr_kcp.sh \
-    && echo "kcptun -t $WORK_HOST:$SERVER_PORT -l :$KCP_SERVER_PORT -mode $MODE >> /~/ssr_kcp.log 2>&1 &" >> $HOME/ssr_kcp.sh \
-    && echo "tail -f /~/ssr_kcp.log" >> $HOME/ssr_kcp.sh \
+RUN echo "python server.py -p $SERVER_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM >> $HOME/ssr_kcp.log 2>&1 &" > /usr/bin/ssr_kcp.sh \
+    && echo "kcptun -t $WORK_HOST:$SERVER_PORT -l :$KCP_SERVER_PORT -mode $MODE >> $HOME/ssr_kcp.log 2>&1 &" >> /usr/bin/ssr_kcp.sh \
+    && echo "tail -f $HOME/ssr_kcp.log" >> /usr/bin/ssr_kcp.sh \
     && chmod +x /usr/bin/ssr_kcp.sh
 
 
-WORKDIR $WORK/shadowsocksr-$BRANCH/shadowsocks
+WORKDIR $HOME/shadowsocksr-$BRANCH/shadowsocks
 
 EXPOSE $SERVER_PORT/tcp
 EXPOSE $KCP_SERVER_PORT/udp
 
-CMD ["$HOME/ssr_kcp.sh"]
+CMD ["/usr/bin/ssr_kcp.sh"]
