@@ -44,14 +44,14 @@ RUN mkdir -p $KCP_WORK \
        /var/cache/apk/*
 
 RUN echo "python server.py -p $SERVER_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM > /~/ssr_kcp.log 2>&1 &" > /usr/bin/ssr_kcp.sh \
-    && echo "kcptun -t $WORK_HOST:$SERVER_PORT -l :$KCP_SERVER_PORT -mode $MODE > /~/ssr_kcp.log 2>&1 &" >> /usr/bin/ssr_kcp.sh \
+    && echo "kcptun -t $WORK_HOST:$SERVER_PORT -l :$KCP_SERVER_PORT -mode $MODE >> /~/ssr_kcp.log 2>&1 &" >> /usr/bin/ssr_kcp.sh \
     && echo "tail -f /~/ssr_kcp.log" >> /usr/bin/ssr_kcp.sh \
     && chmod +x /usr/bin/ssr_kcp.sh
 
 
 WORKDIR $WORK/shadowsocksr-$BRANCH/shadowsocks
 
-EXPOSE $SERVER_PORT
-EXPOSE $KCP_SERVER_PORT
+EXPOSE $SERVER_PORT/tcp
+EXPOSE $KCP_SERVER_PORT/udp
 
 CMD ssr_kcp.sh
