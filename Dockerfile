@@ -43,8 +43,9 @@ RUN mkdir -p $KCP_WORK \
     && rm -rf client_linux_amd64 \
        /var/cache/apk/*
 
-RUN echo "python server.py -p $SERVER_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM > ssr.log 2>&1 &" > /usr/bin/ssr_kcp.sh \
-    && echo "kcptun -t $WORK_HOST:$SERVER_PORT -l :$KCP_SERVER_PORT -mode $MODE > kcptun.log 2>&1 &" >> /usr/bin/ssr_kcp.sh \
+RUN echo "python server.py -p $SERVER_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM > /~/ssr_kcp.log 2>&1 &" > /usr/bin/ssr_kcp.sh \
+    && echo "kcptun -t $WORK_HOST:$SERVER_PORT -l :$KCP_SERVER_PORT -mode $MODE > /~/ssr_kcp.log 2>&1 &" >> /usr/bin/ssr_kcp.sh \
+    && echo "tail -f /~/ssr_kcp.log" >> /usr/bin/ssr_kcp.sh \
     && chmod +x /usr/bin/ssr_kcp.sh
 
 
