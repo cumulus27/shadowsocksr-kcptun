@@ -44,8 +44,8 @@ docker run -d -p 27327:27327/tcp -p 27372:27372/udp --name ssr_kcp cumulus4721/s
 - **27327/tcp**
 - **27372/udp**
 
-&emsp;&emsp;若要自定义参数，请参照`dockerfile`定义`ENV`覆盖默认值即可。<br>
-&emsp;&emsp;不要定义启动`CMD`。
+&emsp;若要自定义参数，请参照`dockerfile`定义`ENV`覆盖默认值即可。<br>
+&emsp;不要定义启动`CMD`。
 
 
 ### 最后
