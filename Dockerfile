@@ -45,6 +45,7 @@ RUN mkdir -p $HOME \
 RUN echo "python server.py -p $SERVER_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM >> /$HOME/ssr_kcp.log 2>&1 &" > /usr/bin/ssr_kcp.sh \
     && echo "kcptun -t $WORK_HOST:$SERVER_PORT -l :$KCP_SERVER_PORT -mode $MODE >> /$HOME/ssr_kcp.log 2>&1 &" >> /usr/bin/ssr_kcp.sh \
     && echo "tail -f /$HOME/ssr_kcp.log" >> /usr/bin/ssr_kcp.sh \
+    && echo "Valar Morghulis" >> /$HOME/ssr_kcp.log \
     && chmod +x /usr/bin/ssr_kcp.sh
 
 
