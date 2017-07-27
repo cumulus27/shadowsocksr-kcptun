@@ -35,8 +35,8 @@ docker run -d -p 27327:27327/tcp -p 27372:27372/udp --name ssr_kcp cumulus4721/s
 
 ### 关于启动参数
 
-&emsp;&emsp;这个镜像是实现功能的第一版，为了省事启动脚本直接把默认参数复制进去了，很快会增加启动参数设置的功能。
-&emsp;&emsp;要自定义参数。若在VPS上使用，启动可以用`/bin/bash`覆盖默认的启动命令。然后修改脚本`/usr/bin/ssr_kcp.sh`中的参数再自行运行脚本即可。
+&emsp;&emsp;这个镜像是实现功能的第一版，为了省事启动脚本直接把默认参数复制进去了，很快会增加启动参数设置的功能。<br>
+&emsp;&emsp;要自定义参数。若在VPS上使用，启动可以用`/bin/bash`覆盖默认的启动命令。然后修改脚本`/usr/bin/ssr_kcp.sh`中的参数再自行运行脚本即可。<br>
 &emsp;&emsp;若使用樱花docker，可以通过定义`ENV`的方式自定义参数。
 
 ### 关于樱花docker
@@ -44,7 +44,7 @@ docker run -d -p 27327:27327/tcp -p 27372:27372/udp --name ssr_kcp cumulus4721/s
 - **27327/tcp**
 - **27372/udp**
 
-&emsp;&emsp;若要自定义参数，请参照`dockerfile`定义`ENV`覆盖默认值即可。
+&emsp;&emsp;若要自定义参数，请参照`dockerfile`定义`ENV`覆盖默认值即可。<br>
 &emsp;&emsp;不要定义启动`CMD`。
 
 
